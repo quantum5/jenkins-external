@@ -43,6 +43,8 @@ def main():
     parser.add_argument('job', help='Jenkins job name')
     parser.add_argument('command', help='command to be run under this script')
     parser.add_argument('args', help='arguments to pass to the command', nargs='*')
+    parser.add_argument('-u', '--user', help='Jenkins user to login as (using public key authentication, '
+                                             'default: your username)')
     parser.add_argument('-d', '--display-name', help='display name of the build')
     parser.add_argument('-s', '--ssh-command', help='ssh command', default='ssh')
     parser.add_argument('-x', '--executable', help='the executable to actually use')
@@ -72,7 +74,8 @@ def main():
     exit_code = process.wait()
     duration = timer() - start_time
 
-    ssh_command = shlex.split(args.ssh_command) + ['-p%d' % (args.port,), args.host, 'set-external-build-result']
+    host = '%s@%s' % (args.user, args.host) if args.user else args.host
+    ssh_command = shlex.split(args.ssh_command) + ['-p%d' % (args.port,), host, 'set-external-build-result']
     ssh_command += ['--job', args.job, '--result', str(exit_code), '--duration', str(int(duration * 1000))]
     ssh_command += ['--log', '-', '-b']
     if args.display_name:

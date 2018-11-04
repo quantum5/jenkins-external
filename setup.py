@@ -7,7 +7,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as f:
 
 setup(
     name='jenkins-external',
-    version='0.1',
+    version='0.2',
     py_modules=['jenkins_external'],
 
     entry_points={

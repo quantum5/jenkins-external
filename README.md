@@ -32,6 +32,8 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  -u USER, --user USER  Jenkins user to login as (using public key
+                        authentication, default: your username)
   -d DISPLAY_NAME, --display-name DISPLAY_NAME
                         display name of the build
   -s SSH_COMMAND, --ssh-command SSH_COMMAND
